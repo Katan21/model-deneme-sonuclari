@@ -1,0 +1,70 @@
+time,test,model,width,height,steps,faces,seed,loras,inputs,result,seconds,peak_vram_mb,min_ram_free_mb,out_size,files
+2026-11-26 19:09,t2i-gol-evi,mage-flow-turbo,1024,1024,,,7,,0,ok,20.4,5462,9452,1024x1024,files\t2i-gol-evi_mage-flow-turbo_1024_1024_00001_.jpg
+2026-11-26 19:09,t2i-gol-evi,mage-flow-turbo,1344,768,,,7,,0,ok,3.4,6008,9412,1344x768,files\t2i-gol-evi_mage-flow-turbo_1344_768_00001_.jpg
+2026-11-26 19:09,t2i-gol-evi,mage-flow-turbo,1024,1024,,,7,,0,ok,14.1,5720,8988,1024x1024,files\t2i-gol-evi_mage-flow-turbo_1024_1024_00002_.jpg
+2026-11-26 19:10,t2i-gol-evi,mage-flow-turbo,1344,768,,,7,,0,ok,3.3,5558,8949,1344x768,files\t2i-gol-evi_mage-flow-turbo_1344_768_00002_.jpg
+2026-11-26 19:10,t2i-portre,mage-flow-turbo,1024,1024,,,7,,0,ok,3.3,5688,8957,1024x1024,files\t2i-portre_mage-flow-turbo_1024_1024_00001_.jpg
+2026-11-26 19:10,t2i-afis,mage-flow-turbo,1344,768,,,7,,0,ok,3.3,5720,8932,1344x768,files\t2i-afis_mage-flow-turbo_1344_768_00001_.jpg
+2026-11-26 19:10,edit-kis,mage-flow-edit-turbo,,,,,7,,1,invalid: at most 0 input images,,,,,
+2026-11-26 19:10,edit-orgu,mage-flow-edit-turbo,,,,,7,,1,invalid: at most 0 input images,,,,,
+2026-11-26 19:10,edit-tabela,mage-flow-edit-turbo,,,,,7,,1,invalid: at most 0 input images,,,,,
+2026-11-26 19:10,edit-kis,mage-flow-edit-turbo,,,,,7,,1,"error: TextEncodeMageFlowEdit: Boolean value of Tensor with more than one value is ambiguous
+",2.2,1414,21142,,
+2026-11-26 19:10,edit-orgu,mage-flow-edit-turbo,,,,,7,,1,"error: TextEncodeMageFlowEdit: Boolean value of Tensor with more than one value is ambiguous
+",1.1,1414,22173,,
+2026-11-26 19:10,edit-tabela,mage-flow-edit-turbo,,,,,7,,1,"error: TextEncodeMageFlowEdit: Boolean value of Tensor with more than one value is ambiguous
+",1.1,1412,22180,,
+2026-11-26 19:13,edit-kis,mage-flow-edit-turbo,,,,,7,,1,"rejected: {""error"": {""type"": ""prompt_outputs_failed_validation"", ""message"": ""Prompt outputs failed validation"", ""details"": """", ""extra_info"": {}}, ""node_errors"": {""7"": {""errors"": [{""type"": ""required_input_missing"", ""message"": ""Required input is missing"", ""details"": ""width"", ""extra_info"": {""input_name"": ""width""",,,,,
+2026-11-26 19:13,edit-orgu,mage-flow-edit-turbo,,,,,7,,1,"rejected: {""error"": {""type"": ""prompt_outputs_failed_validation"", ""message"": ""Prompt outputs failed validation"", ""details"": """", ""extra_info"": {}}, ""node_errors"": {""7"": {""errors"": [{""type"": ""required_input_missing"", ""message"": ""Required input is missing"", ""details"": ""width"", ""extra_info"": {""input_name"": ""width""",,,,,
+2026-11-26 19:13,edit-tabela,mage-flow-edit-turbo,,,,,7,,1,"rejected: {""error"": {""type"": ""prompt_outputs_failed_validation"", ""message"": ""Prompt outputs failed validation"", ""details"": """", ""extra_info"": {}}, ""node_errors"": {""7"": {""errors"": [{""type"": ""required_input_missing"", ""message"": ""Required input is missing"", ""details"": ""width"", ""extra_info"": {""input_name"": ""width""",,,,,
+2026-11-26 19:14,edit-kis,mage-flow-edit-turbo,,,,,7,,1,ok,20.2,5568,9259,1360x768,files\edit-kis_mage-flow-edit-turbo_00001_.jpg
+2026-11-26 19:14,edit-orgu,mage-flow-edit-turbo,,,,,7,,1,ok,3.3,5565,9216,1024x1024,files\edit-orgu_mage-flow-edit-turbo_00001_.jpg
+2026-11-26 19:14,edit-tabela,mage-flow-edit-turbo,,,,,7,,1,ok,3.3,5613,9221,1360x768,files\edit-tabela_mage-flow-edit-turbo_00001_.jpg
+2026-11-26 19:37,edit-kis,flux2-klein-4b-edit,,,,,7,,1,ok,23.8,5736,8525,1360x752,files\edit-kis_flux2-klein-4b-edit_00001_.jpg
+2026-11-26 19:37,edit-orgu,flux2-klein-4b-edit,,,,,7,,1,ok,13.3,5834,8376,1024x1024,files\edit-orgu_flux2-klein-4b-edit_00001_.jpg
+2026-11-26 19:37,edit-tabela,flux2-klein-4b-edit,,,,,7,,1,ok,12.5,5930,8413,1360x752,files\edit-tabela_flux2-klein-4b-edit_00001_.jpg
+2026-11-26 19:37,edit-iki-gorsel,flux2-klein-4b-edit,,,,,7,,2,invalid: at most 1 input images,,,,,
+2026-11-26 19:42,edit-iki-gorsel,flux2-klein-4b-edit-2img,,,,,7,,2,ok,31.6,5537,8532,880x1168,files\edit-iki-gorsel_flux2-klein-4b-edit-2img_00001_.jpg
+2026-11-26 19:54,t2i-gol-evi,qwen-image-2.1-turbo,1024,1024,,,7,,0,ok,30.7,5695,4680,1024x1024,files\t2i-gol-evi_qwen-image-2.1-turbo_1024_1024_00001_.jpg
+2026-11-26 19:54,t2i-gol-evi,qwen-image-2.1-turbo,1344,768,,,7,,0,ok,7.2,5510,4665,1344x768,files\t2i-gol-evi_qwen-image-2.1-turbo_1344_768_00001_.jpg
+2026-11-26 19:54,t2i-portre,qwen-image-2.1-turbo,1024,1024,,,7,,0,ok,9.1,5568,5323,1024x1024,files\t2i-portre_qwen-image-2.1-turbo_1024_1024_00001_.jpg
+2026-11-26 19:54,t2i-afis,qwen-image-2.1-turbo,1344,768,,,7,,0,ok,9.5,5696,5378,1344x768,files\t2i-afis_qwen-image-2.1-turbo_1344_768_00001_.jpg
+2026-11-26 19:55,edit-kis,qwen-image-2.1-turbo-edit,,,,,7,,1,ok,48.3,5384,5147,1376x768,files\edit-kis_qwen-image-2.1-turbo-edit_00001_.jpg
+2026-11-26 19:55,edit-orgu,qwen-image-2.1-turbo-edit,,,,,7,,1,ok,18.2,5450,5084,1024x1024,files\edit-orgu_qwen-image-2.1-turbo-edit_00001_.jpg
+2026-11-26 19:56,edit-tabela,qwen-image-2.1-turbo-edit,,,,,7,,1,ok,16.8,6170,4996,1376x768,files\edit-tabela_qwen-image-2.1-turbo-edit_00001_.jpg
+2026-11-26 19:56,edit-iki-gorsel,qwen-image-2.1-turbo-edit,,,,,7,,2,ok,28.8,5390,5055,896x1184,files\edit-iki-gorsel_qwen-image-2.1-turbo-edit_00001_.jpg
+2026-11-26 20:05,t2i-gol-evi,krea2-turbo,1024,1024,,,7,,0,ok,42.4,5603,3606,1024x1024,files\t2i-gol-evi_krea2-turbo_1024_1024_00001_.jpg
+2026-11-26 20:06,t2i-gol-evi,krea2-turbo,1344,768,,,7,,0,ok,14.6,5567,3436,1344x768,files\t2i-gol-evi_krea2-turbo_1344_768_00001_.jpg
+2026-11-26 20:06,t2i-portre,krea2-turbo,1024,1024,,,7,,0,ok,16.2,5806,3366,1024x1024,files\t2i-portre_krea2-turbo_1024_1024_00001_.jpg
+2026-11-26 20:06,t2i-afis,krea2-turbo,1344,768,,,7,,0,ok,16.5,5844,4135,1344x768,files\t2i-afis_krea2-turbo_1344_768_00001_.jpg
+2026-11-26 20:12,3d-sandik,hunyuan3d-2.1,,,,,7,,1,ok,92.9,5569,10701,6.9 MB,files\3d-sandik_hunyuan3d-2.1_00001_.glb
+2026-11-26 20:12,3d-sandik,triposplat,,,,,7,,1,ok,41.2,5491,18653,17.8 MB,
+2026-11-26 20:14,3d-mantar,hunyuan3d-2.1,,,,,7,,1,ok,77.9,5751,9780,10.7 MB,
+2026-11-26 20:14,3d-mantar,triposplat,,,,,7,,1,ok,37.2,5430,18514,17.8 MB,
+2026-11-26 20:16,3d-robot,hunyuan3d-2.1,,,,,7,,1,ok,76.1,5590,9858,9.5 MB,files\3d-robot_hunyuan3d-2.1_00001_.glb
+2026-11-26 20:16,3d-robot,triposplat,,,,,7,,1,ok,36.9,5514,18425,17.8 MB,
+2026-11-26 20:20,3d-sandik,idol,,,,,7,,1,ok,43.5,5089,19075,17.8 MB,
+2026-11-26 20:21,3d-mantar,idol,,,,,7,,1,ok,36.2,5815,18917,17.8 MB,
+2026-11-26 20:21,3d-robot,idol,,,,,7,,1,ok,36.7,5642,18852,17.8 MB,
+,3d-cok-aci-robot,hunyuan3d-2-mv-turbo,,,,,7,,4,"rejected: {""error"": {""type"": ""prompt_outputs_failed_validation"", ""message"": ""Prompt outputs failed validation"", ""details"": """", ""extra_info"": {}}, ""node_errors"": {""50"": {""errors"": [{""type"": ""invalid_input_type"", ""message"": ""Failed to convert an input value to a INT value"", ""details"": ""steps, {{steps}}, invalid",,,,,
+,3d-cok-aci-robot,hunyuan3d-2-mv-turbo,,,,,7,,4,ok,65.8,5671,12094,5.5 MB,files\3d-cok-aci-robot_hunyuan3d-2-mv-turbo_00001_.glb
+,3d-cok-aci-robot,pixal3d-multiview,,,,,7,,4,"rejected: {""error"": {""type"": ""prompt_outputs_failed_validation"", ""message"": ""Prompt outputs failed validation"", ""details"": """", ""extra_info"": {}}, ""node_errors"": {""18"": {""errors"": [{""type"": ""exception_during_inner_validation"", ""message"": ""Exception when validating inner node"", ""details"": ""list index out of ran",,,,,
+,3d-cok-aci-robot,pixal3d-multiview,,,,,7,,4,"rejected: {""error"": {""type"": ""prompt_outputs_failed_validation"", ""message"": ""Prompt outputs failed validation"", ""details"": """", ""extra_info"": {}}, ""node_errors"": {""18"": {""errors"": [{""type"": ""exception_during_inner_validation"", ""message"": ""Exception when validating inner node"", ""details"": ""list index out of ran",,,,,
+,3d-cok-aci-robot,pixal3d-multiview,,,,,7,,4,"rejected: {""error"": {""type"": ""prompt_outputs_failed_validation"", ""message"": ""Prompt outputs failed validation"", ""details"": """", ""extra_info"": {}}, ""node_errors"": {""71"": {""errors"": [{""type"": ""required_input_missing"", ""message"": ""Required input is missing"", ""details"": ""fill"", ""extra_info"": {""input_name"": ""sign_m",,,,,
+,3d-cok-aci-robot,pixal3d-multiview,,,,,7,,4,"error: BakeAmbientOcclusion: BakeAmbientOcclusion: low_poly has no UVs. Connect the UV-unwrapped low-poly (the same one used for the other bakes); this node never unwraps.
+",422.2,6913,2852,,
+,3d-cok-aci-robot,pixal3d-multiview,,,,,7,,4,ok,477.4,7113,3560,81.1 MB,
+2026-11-26 21:29,t2i-gol-evi,boogu-turbo,1024,1024,,,7,,0,ok,54.7,5441,5302,1024x1024,files\t2i-gol-evi_boogu-turbo_1024_1024_00001_.jpg
+2026-11-26 21:29,t2i-gol-evi,boogu-turbo,1344,768,,,7,,0,ok,11.6,5688,5251,1344x768,files\t2i-gol-evi_boogu-turbo_1344_768_00001_.jpg
+2026-11-26 21:29,t2i-portre,boogu-turbo,1024,1024,,,7,,0,ok,12.4,5632,5202,1024x1024,files\t2i-portre_boogu-turbo_1024_1024_00001_.jpg
+2026-11-26 21:29,t2i-afis,boogu-turbo,1344,768,,,7,,0,ok,12.1,5241,5250,1344x768,files\t2i-afis_boogu-turbo_1344_768_00001_.jpg
+2026-11-26 21:33,edit-kis,boogu-edit,,,,,7,,1,ok,219.2,5231,635,1024x1024,files\edit-kis_boogu-edit_00001_.jpg
+2026-11-26 21:36,edit-orgu,boogu-edit,,,,,7,,1,ok,163.8,5560,513,1024x1024,files\edit-orgu_boogu-edit_00001_.jpg
+2026-11-26 21:39,edit-tabela,boogu-edit,,,,,7,,1,ok,173.3,5259,802,1024x1024,files\edit-tabela_boogu-edit_00001_.jpg
+2026-11-27 08:58,edit-iki-gorsel,boogu-edit,,,,,7,,2,ok,335.7,5267,1932,1024x1024,files\edit-iki-gorsel_boogu-edit_00002_.jpg
+2026-11-27 09:17,edit-lora-sil,flux2-klein-4b-edit,,,,,7,kDEkt5q7tDLKOpQJIVMPx_pytorch_lora_weights_comfy_converted.safetensors@1.0,1,ok,47.5,5536,8853,1024x1024,files\edit-lora-sil_flux2-klein-4b-edit_00001_.jpg
+2026-11-27 09:20,video-kulube,wan2.2-ti2v-5b,,,,,7,,1,ok,119.5,6136,3555,2.4 MB,files\video-kulube_wan2.2-ti2v-5b_00001_.mp4
+2026-11-27 09:35,t2i-gol-evi,flux3-klein,1024,1024,,,7,,0,ok,25.1,5488,11753,1024x1024,files\t2i-gol-evi_flux3-klein_1024_1024_00001_.jpg
+2026-11-27 09:35,t2i-gol-evi,flux3-klein,1344,768,,,7,,0,ok,7.4,5600,11758,1344x768,files\t2i-gol-evi_flux3-klein_1344_768_00001_.jpg
+2026-11-27 09:35,t2i-portre,flux3-klein,1024,1024,,,7,,0,ok,8.6,5472,11773,1024x1024,files\t2i-portre_flux3-klein_1024_1024_00001_.jpg
+2026-11-27 09:36,t2i-afis,flux3-klein,1344,768,,,7,,0,ok,8.3,5568,11763,1344x768,files\t2i-afis_flux3-klein_1344_768_00001_.jpg

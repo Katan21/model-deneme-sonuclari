@@ -1,0 +1,21 @@
+{
+ "id": "mage-flow-turbo",
+ "name": "Mage-Flow Turbo (int8)",
+ "category": "image",
+ "inputs": ["text"],
+ "outputs": ["png"],
+ "params": {
+  "width": {"min": 512, "max": 2048, "step": 16, "default": 1024},
+  "height": {"min": 512, "max": 2048, "step": 16, "default": 1024},
+  "steps": {"min": 1, "max": 50, "default": 4}
+ },
+ "workflow": {
+  "1": {"class_type": "UNETLoader", "inputs": {"unet_name": "mage_flow_turbo_int8_convrot.safetensors", "weight_dtype": "default"}},
+  "2": {"class_type": "CLIPLoader", "inputs": {"clip_name": "qwen3vl_4b_bf16.safetensors", "type": "mage", "device": "default"}},
+  "3": {"class_type": "VAELoader", "inputs": {"vae_name": "mage_flow_vae_bf16.safetensors"}},
+  "4": {"class_type": "TextEncodeMageFlowEdit", "inputs": {"clip": ["2", 0], "prompt": "{{prompt}}", "negative_prompt": "", "width": "{{width}}", "height": "{{height}}", "batch_size": 1, "vae": ["3", 0]}},
+  "5": {"class_type": "KSampler", "inputs": {"model": ["1", 0], "seed": "{{seed}}", "steps": "{{steps}}", "cfg": 1.0, "sampler_name": "euler", "scheduler": "simple", "positive": ["4", 0], "negative": ["4", 1], "latent_image": ["4", 2], "denoise": 1.0}},
+  "6": {"class_type": "VAEDecode", "inputs": {"samples": ["5", 0], "vae": ["3", 0]}},
+  "7": {"class_type": "SaveImage", "inputs": {"images": ["6", 0], "filename_prefix": "{{prefix}}"}}
+ }
+}

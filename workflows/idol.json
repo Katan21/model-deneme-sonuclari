@@ -1,0 +1,27 @@
+{
+ "id": "idol",
+ "name": "Idol (Gaussian splat, ply)",
+ "category": "3d",
+ "inputs": ["image"],
+ "max_inputs": 1,
+ "outputs": ["ply"],
+ "params": {
+  "steps": {"min": 5, "max": 50, "default": 20}
+ },
+ "workflow": {
+  "1": {"class_type": "LoadImage", "inputs": {"image": "{{image}}"}},
+  "2": {"class_type": "LoadBackgroundRemovalModel", "inputs": {"bg_removal_name": "birefnet.safetensors"}},
+  "3": {"class_type": "RemoveBackground", "inputs": {"image": ["1", 0], "bg_removal_model": ["2", 0]}},
+  "4": {"class_type": "InvertMask", "inputs": {"mask": ["3", 0]}},
+  "5": {"class_type": "TripoSplatPreprocessImage", "inputs": {"image": ["1", 0], "mask": ["4", 0], "erode_radius": 1, "size": 1024}},
+  "6": {"class_type": "CLIPVisionLoader", "inputs": {"clip_name": "dino_v3_vit_h_bf16.safetensors"}},
+  "7": {"class_type": "VAELoader", "inputs": {"vae_name": "flux2-vae.safetensors"}},
+  "8": {"class_type": "VAELoader", "inputs": {"vae_name": "idol_decoder_fp16.safetensors"}},
+  "9": {"class_type": "TripoSplatConditioning", "inputs": {"clip_vision": ["6", 0], "vae": ["7", 0], "image": ["5", 0]}},
+  "10": {"class_type": "UNETLoader", "inputs": {"unet_name": "idol_fp16.safetensors", "weight_dtype": "default"}},
+  "11": {"class_type": "KSampler", "inputs": {"model": ["10", 0], "seed": "{{seed}}", "steps": "{{steps}}", "cfg": 3.0, "sampler_name": "dpmpp_2m", "scheduler": "simple", "positive": ["9", 0], "negative": ["9", 1], "latent_image": ["9", 2], "denoise": 1.0}},
+  "12": {"class_type": "VAEDecodeTripoSplat", "inputs": {"samples": ["11", 0], "vae": ["8", 0], "num_gaussians": 262144, "seed": "{{seed}}"}},
+  "13": {"class_type": "SplatToFile3D", "inputs": {"splat": ["12", 0], "format": "ply"}},
+  "14": {"class_type": "SaveGLB", "inputs": {"mesh": ["13", 0], "filename_prefix": "{{prefix}}"}}
+ }
+}

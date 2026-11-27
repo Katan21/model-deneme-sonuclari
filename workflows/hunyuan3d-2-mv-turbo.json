@@ -1,0 +1,30 @@
+{
+ "id": "hunyuan3d-2-mv-turbo",
+ "name": "Hunyuan3D 2 MV-Turbo (4 görünüş, şekil)",
+ "category": "3d",
+ "inputs": ["image"],
+ "max_inputs": 4,
+ "outputs": ["glb"],
+ "params": {
+  "steps": {"min": 5, "max": 50, "default": 20}
+ },
+ "workflow": {
+  "1": {"class_type": "ImageOnlyCheckpointLoader", "inputs": {"ckpt_name": "hunyuan3d-dit-v2-mv-turbo_fp16.safetensors"}},
+  "2": {"class_type": "ModelSamplingAuraFlow", "inputs": {"model": ["1", 0], "shift": 1.0, "sampling": "flow"}},
+  "11": {"class_type": "LoadImage", "inputs": {"image": "{{image1}}"}},
+  "12": {"class_type": "LoadImage", "inputs": {"image": "{{image2}}"}},
+  "13": {"class_type": "LoadImage", "inputs": {"image": "{{image3}}"}},
+  "14": {"class_type": "LoadImage", "inputs": {"image": "{{image4}}"}},
+  "21": {"class_type": "CLIPVisionEncode", "inputs": {"clip_vision": ["1", 1], "image": ["11", 0], "crop": "none"}},
+  "22": {"class_type": "CLIPVisionEncode", "inputs": {"clip_vision": ["1", 1], "image": ["12", 0], "crop": "none"}},
+  "23": {"class_type": "CLIPVisionEncode", "inputs": {"clip_vision": ["1", 1], "image": ["13", 0], "crop": "none"}},
+  "24": {"class_type": "CLIPVisionEncode", "inputs": {"clip_vision": ["1", 1], "image": ["14", 0], "crop": "none"}},
+  "30": {"class_type": "Hunyuan3Dv2ConditioningMultiView", "inputs": {"front": ["21", 0], "left": ["22", 0], "back": ["23", 0], "right": ["24", 0]}},
+  "31": {"class_type": "FluxGuidance", "inputs": {"conditioning": ["30", 0], "guidance": 3.5}},
+  "40": {"class_type": "EmptyLatentHunyuan3Dv2", "inputs": {"resolution": 3072, "batch_size": 1}},
+  "50": {"class_type": "KSampler", "inputs": {"model": ["2", 0], "seed": "{{seed}}", "steps": "{{steps}}", "cfg": 4.0, "sampler_name": "euler", "scheduler": "normal", "positive": ["31", 0], "negative": ["30", 1], "latent_image": ["40", 0], "denoise": 1.0}},
+  "60": {"class_type": "VAEDecodeHunyuan3D", "inputs": {"samples": ["50", 0], "vae": ["1", 2], "num_chunks": 8000, "octree_resolution": 256}},
+  "61": {"class_type": "VoxelToMesh", "inputs": {"voxel": ["60", 0], "algorithm": "surface net", "threshold": 0.6}},
+  "62": {"class_type": "SaveGLB", "inputs": {"mesh": ["61", 0], "filename_prefix": "{{prefix}}"}}
+ }
+}

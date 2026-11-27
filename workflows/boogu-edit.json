@@ -1,0 +1,32 @@
+{
+ "id": "boogu-edit",
+ "name": "Boogu Image 0.1 Edit (int8)",
+ "category": "image",
+ "inputs": ["text", "image"],
+ "max_inputs": 2,
+ "outputs": ["png"],
+ "params": {
+  "width": {"min": 512, "max": 2048, "step": 8, "default": 1024},
+  "height": {"min": 512, "max": 2048, "step": 8, "default": 1024}
+ },
+ "refs": {
+  "node": "4",
+  "image_key": "images.image_{n}",
+  "vae": ["3", 0],
+  "sampler": "10",
+  "latent": ["6", 0]
+ },
+ "workflow": {
+  "1": {"class_type": "UNETLoader", "inputs": {"unet_name": "boogu_image_edit_int8_convrot.safetensors", "weight_dtype": "default"}},
+  "2": {"class_type": "CLIPLoader", "inputs": {"clip_name": "qwen3vl_8b_fp8_scaled.safetensors", "type": "boogu", "device": "default"}},
+  "3": {"class_type": "VAELoader", "inputs": {"vae_name": "ae.safetensors"}},
+  "4": {"class_type": "TextEncodeBooguEdit", "inputs": {"clip": ["2", 0], "prompt": "{{prompt}}", "negative_prompt": "", "vae": ["3", 0]}},
+  "5": {"class_type": "ModelSamplingAuraFlow", "inputs": {"model": ["1", 0], "shift": 3.16}},
+  "6": {"class_type": "EmptyLatentImage", "inputs": {"width": "{{width}}", "height": "{{height}}", "batch_size": 1}},
+  "7": {"class_type": "BasicScheduler", "inputs": {"model": ["5", 0], "scheduler": "simple", "steps": 25, "denoise": 1.0}},
+  "8": {"class_type": "KSamplerSelect", "inputs": {"sampler_name": "dpmpp_2m"}},
+  "10": {"class_type": "SamplerCustom", "inputs": {"model": ["1", 0], "add_noise": true, "noise_seed": "{{seed}}", "cfg": 3.5, "positive": ["4", 0], "negative": ["4", 1], "sampler": ["8", 0], "sigmas": ["7", 0], "latent_image": ["6", 0]}},
+  "11": {"class_type": "VAEDecode", "inputs": {"samples": ["10", 0], "vae": ["3", 0]}},
+  "12": {"class_type": "SaveImage", "inputs": {"images": ["11", 0], "filename_prefix": "{{prefix}}"}}
+ }
+}

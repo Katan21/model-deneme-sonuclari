@@ -1,0 +1,41 @@
+{
+ "id": "flux2-klein-4b-edit-2img",
+ "name": "FLUX.2 [klein] 4B Edit (distilled, iki girdi)",
+ "category": "image",
+ "inputs": ["text", "image"],
+ "max_inputs": 2,
+ "outputs": ["png"],
+ "params": {
+  "steps": {"min": 1, "max": 30, "default": 4}
+ },
+ "refs": {
+  "node": "18b",
+  "image_key": "pixels",
+  "vae": ["12", 0],
+  "sampler": "26",
+  "latent": ["22", 0]
+ },
+ "workflow": {
+  "10": {"class_type": "UNETLoader", "inputs": {"unet_name": "flux-2-klein-4b-fp8.safetensors", "weight_dtype": "default"}},
+  "11": {"class_type": "CLIPLoader", "inputs": {"clip_name": "qwen_3_4b.safetensors", "type": "flux2", "device": "default"}},
+  "12": {"class_type": "VAELoader", "inputs": {"vae_name": "flux2-vae.safetensors"}},
+  "14": {"class_type": "ImageScaleToTotalPixels", "inputs": {"image": ["8101", 0], "upscale_method": "nearest-exact", "megapixels": 1.0, "resolution_steps": 1}},
+  "15": {"class_type": "GetImageSize", "inputs": {"image": ["14", 0]}},
+  "16": {"class_type": "CLIPTextEncode", "inputs": {"clip": ["11", 0], "text": "{{prompt}}"}},
+  "17": {"class_type": "ConditioningZeroOut", "inputs": {"conditioning": ["16", 0]}},
+  "18": {"class_type": "VAEEncode", "inputs": {"pixels": ["14", 0], "vae": ["12", 0]}},
+  "18b": {"class_type": "VAEEncode", "inputs": {"vae": ["12", 0]}},
+  "19": {"class_type": "ReferenceLatent", "inputs": {"conditioning": ["16", 0], "latent": ["18", 0]}},
+  "19b": {"class_type": "ReferenceLatent", "inputs": {"conditioning": ["19", 0], "latent": ["18b", 0]}},
+  "20": {"class_type": "ReferenceLatent", "inputs": {"conditioning": ["17", 0], "latent": ["18", 0]}},
+  "20b": {"class_type": "ReferenceLatent", "inputs": {"conditioning": ["20", 0], "latent": ["18b", 0]}},
+  "21": {"class_type": "Flux2Scheduler", "inputs": {"steps": "{{steps}}", "width": ["15", 0], "height": ["15", 1]}},
+  "22": {"class_type": "EmptyFlux2LatentImage", "inputs": {"width": ["15", 0], "height": ["15", 1], "batch_size": 1}},
+  "23": {"class_type": "CFGGuider", "inputs": {"model": ["10", 0], "positive": ["19b", 0], "negative": ["20b", 0], "cfg": 1.0}},
+  "24": {"class_type": "KSamplerSelect", "inputs": {"sampler_name": "euler"}},
+  "25": {"class_type": "RandomNoise", "inputs": {"noise_seed": "{{seed}}"}},
+  "26": {"class_type": "SamplerCustomAdvanced", "inputs": {"noise": ["25", 0], "guider": ["23", 0], "sampler": ["24", 0], "sigmas": ["21", 0], "latent_image": ["22", 0]}},
+  "27": {"class_type": "VAEDecode", "inputs": {"samples": ["26", 0], "vae": ["12", 0]}},
+  "28": {"class_type": "SaveImage", "inputs": {"images": ["27", 0], "filename_prefix": "{{prefix}}"}}
+ }
+}
