@@ -1,6 +1,6 @@
 # Downloads a catalog model's files (or any Hugging Face file) into the test folder, resumable, SHA-256 checked.
-#   python -I download.py --catalog ..\..\..\app\src-tauri\catalog\catalog.json --root D:\bla-3070 z-image-turbo flux2-klein-4b
-#   python -I download.py --root D:\bla-3070 --url loras https://huggingface.co/.../x.safetensors
+#   python -I download.py --catalog ..\..\..\app\src-tauri\catalog\catalog.json --root <test-klasoru> z-image-turbo flux2-klein-4b
+#   python -I download.py --root <test-klasoru> --url loras https://huggingface.co/.../x.safetensors
 # --dry prints sizes only (say the size before a big download). Needs curl (in Windows 10+).
 import argparse, hashlib, http.client, json, os, subprocess, sys, time, urllib.parse
 

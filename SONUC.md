@@ -1,9 +1,9 @@
-# RTX 3070 (8 GB): yeni model adayları, test sonuçları
+# Yeni AI modelleri: 8 GB VRAM'de test sonuçları
 
 Ham ölçümler `sonuclar/sonuclar.csv` dosyasında, görseller `sonuclar/files/` klasöründe. Testler tek GPU'lu taşınabilir bir ComfyUI ortamında (eklentisiz, `--vram-headroom 2`) yapıldı.
 
 ## Sistem
-- Ekran kartı ve sürücü: NVIDIA GeForce RTX 3070 8 GB, sürücü 621.40 (CUDA 13.5)
+- Ekran kartı: 8 GB VRAM (cihaz adı verilmiyor), son sürücü
 - Kart belleği: toplam 8192 MB, boşta dolu ~1250 MB (Discord + masaüstü dahil; ölçülen tepe değerler buna ~1,2 GB ekler)
 - RAM: 32 GB (32678 MB)
 - İşlemci: AMD Ryzen 7 5800X (8 çekirdek)

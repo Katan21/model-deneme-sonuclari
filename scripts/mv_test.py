@@ -1,7 +1,7 @@
 # Runs the multi-view 3D tests (3d-cok-aci-robot) whose workflows take named views.
 # workflows/<id>.json uses {{image1}}..{{image4}} (front, left, back, right) + {{seed}} {{prefix}}.
 # Same CSV/logic as run_test.py (GOREV.md: "gerekirse run_test.py'yi düzenle").
-#   PY gorev\arda-3070\scripts\mv_test.py --catalog ... --root E:\bla-3070 --port 8398 --tests ... --out ... --only hunyuan3d-2-mv-turbo
+#   PY deneme\scripts\mv_test.py --catalog ... --root <test-klasoru> --port 8398 --tests ... --out ... --only hunyuan3d-2-mv-turbo
 import argparse, csv, json, os, shutil, sys, time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -38,13 +38,13 @@ def main():
             m = json.load(open(os.path.join(o.workflows, mid + '.json'), encoding='utf-8'))
             names = []
             for k, name in enumerate(t.get('images', [])):
-                dst = f'bla3070_{t["id"]}_{k}{os.path.splitext(name)[1]}'
+                dst = f'mt_{t["id"]}_{k}{os.path.splitext(name)[1]}'
                 shutil.copy(os.path.join(o.inputs, name), os.path.join(o.root, 'in', dst))
                 names.append(dst)
             wf = json.dumps(m['workflow'])
             for k, n in enumerate(names):
                 wf = wf.replace('{{image%d}}' % (k + 1), n)
-            wf = wf.replace('{{seed}}', str(o.seed)).replace('{{prefix}}', f'bla3070/{t["id"]}_{mid}')
+            wf = wf.replace('{{seed}}', str(o.seed)).replace('{{prefix}}', f'mt/{t["id"]}_{mid}')
             for pk, pv in (('steps', m.get('params', {}).get('steps', {}).get('default', 20)),
                            ('faces', m.get('params', {}).get('faces', {}).get('default', 1))):
                 wf = wf.replace('"%s"' % ('{{' + pk + '}}'), str(pv)).replace('{{' + pk + '}}', str(pv))

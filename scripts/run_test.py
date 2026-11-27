@@ -1,7 +1,7 @@
-# Runs the tests in tests.json on the test ComfyUI, the way BananaLA would (catalog models, or workflows/<id>.json), and writes one CSV row per run plus a
+# Runs the tests in tests.json on the test ComfyUI, the way the app would (catalog models, or workflows/<id>.json), and writes one CSV row per run plus a
 # small JPEG preview (images) or the GLB itself (3D) into the results folder.
 #   <ComfyUI>\python_embeded\python.exe -s run_test.py --catalog ..\..\..\app\src-tauri\catalog\catalog.json
-#       --root D:\bla-3070 --port 8398 --tests ..\tests.json --out ..\sonuclar [--only z-image-turbo] [--test t2i-cabin]
+#       --root <test-klasoru> --port 8398 --tests ..\tests.json --out ..\sonuclar [--only z-image-turbo] [--test t2i-cabin]
 # Measures: wall time from submit to done, the card's peak used memory (nvidia-smi, every 0.5 s; other programs
 # included, so note the idle value), and the lowest free system RAM (ComfyUI /system_stats).
 import argparse, csv, json, os, shutil, subprocess, sys, threading, time, urllib.request
@@ -57,19 +57,19 @@ def run_one(o, cat, t, mid, extra, writer, last):
         writer.writerow({'test': t['id'], 'model': mid, 'result': f'invalid: {e}'}); return
     images = []
     for k, name in enumerate(t.get('images', [])):
-        dst = f'bla3070_{t["id"]}_{k}{os.path.splitext(name)[1]}'
+        dst = f'mt_{t["id"]}_{k}{os.path.splitext(name)[1]}'
         shutil.copy(os.path.join(o.inputs, name), os.path.join(o.root, 'in', dst))
         images.append(dst)
     loras = [dict(l) for l in t.get('loras', [])]
     tag = '_'.join(str(x) for x in extra.values())
-    prefix = f'bla3070/{t["id"]}_{mid}_{tag}'.rstrip('_')
+    prefix = f'mt/{t["id"]}_{mid}_{tag}'.rstrip('_')
     row = {'test': t['id'], 'model': mid, **{k: extra.get(k, '') for k in ('width', 'height', 'steps', 'faces')}, 'seed': o.seed,
            'loras': '+'.join(f'{l["file"]}@{l["strength"]}' for l in loras), 'inputs': len(images)}
     try:
         w = bla_wf.fill(m, prompt=t.get('prompt', ''), images=images, loras=loras, seed=o.seed, prefix=prefix, batch=1, **extra)
     except bla_wf.Invalid as e:
         writer.writerow({**row, 'result': f'invalid: {e}'}); return
-    # BananaLA frees the card when the model changes (one model on the card at a time).
+    # the app frees the card when the model changes (one model on the card at a time).
     if last[0] != mid:
         api(o.port, '/free', {'unload_models': True, 'free_memory': True}); time.sleep(2)
         last[0] = mid

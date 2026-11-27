@@ -1,4 +1,4 @@
-# Builds a ComfyUI API workflow exactly the way BananaLA does (app/src-tauri/src/catalog.rs: fill, add_refs,
+# Builds a ComfyUI API workflow exactly the way the app does (uygulamanın workflow kurucu kodu: fill, add_refs,
 # add_loras), from app/src-tauri/catalog/catalog.json. Keep it in step with catalog.rs when that changes.
 import json, random
 

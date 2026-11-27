@@ -1,6 +1,6 @@
 # Generates the multiview robot inputs (left/back/right) with an edit model, using a
-# gorev/arda-3070/workflows/<id>.json workflow, and copies them into gorev/arda-3070/inputs/.
-#   PY gen_mv.py --root E:\bla-3070 --port 8398 --wf mage-flow-edit-turbo [--seed 7]
+# deneme/workflows/<id>.json workflow, and copies them into deneme/inputs/.
+#   PY gen_mv.py --root <test-klasoru> --port 8398 --wf mage-flow-edit-turbo [--seed 7]
 import argparse, json, os, shutil, sys, time, urllib.request
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__))))
@@ -25,13 +25,13 @@ def main():
     a.add_argument('--wf', required=True); a.add_argument('--seed', type=int, default=7)
     a.add_argument('--repo', default=os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
     o = a.parse_args()
-    here = os.path.join(o.repo, 'gorev', 'arda-3070')
+    here = os.path.join(o.repo, 'deneme')
     m = json.load(open(os.path.join(here, 'workflows', o.wf + '.json'), encoding='utf-8'))
     src = 'g_robot.jpg'
-    shutil.copy(os.path.join(here, 'inputs', src), os.path.join(o.root, 'in', 'bla3070_mv_src.jpg'))
+    shutil.copy(os.path.join(here, 'inputs', src), os.path.join(o.root, 'in', 'mt_mv_src.jpg'))
     api(o.port, '/free', {'unload_models': True, 'free_memory': True})
     for out_name, prompt in VIEWS:
-        w = bla_wf.fill(m, prompt=prompt, images=['bla3070_mv_src.jpg'], seed=o.seed, prefix='bla3070/mv')
+        w = bla_wf.fill(m, prompt=prompt, images=['mt_mv_src.jpg'], seed=o.seed, prefix='mt/mv')
         pid = api(o.port, '/prompt', {'prompt': w})['prompt_id']
         h = None
         for _ in range(1800):
