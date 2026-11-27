@@ -1,6 +1,6 @@
 # Runs the multi-view 3D tests (3d-cok-aci-robot) whose workflows take named views.
 # workflows/<id>.json uses {{image1}}..{{image4}} (front, left, back, right) + {{seed}} {{prefix}}.
-# Same CSV/logic as run_test.py (GOREV.md: "gerekirse run_test.py'yi düzenle").
+# Same CSV/logic as run_test.py (uyarlanabilir).
 #   PY deneme\scripts\mv_test.py --catalog ... --root <test-klasoru> --port 8398 --tests ... --out ... --only hunyuan3d-2-mv-turbo
 import argparse, csv, json, os, shutil, sys, time
 
