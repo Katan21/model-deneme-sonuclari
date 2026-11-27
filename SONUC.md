@@ -8,7 +8,7 @@ Ham ölçümler `sonuclar/sonuclar.csv` dosyasında, görseller `sonuclar/files/
 - RAM: 32 GB (32678 MB)
 - İşlemci: AMD Ryzen 7 5800X (8 çekirdek)
 - Disk (deneme klasörü), boş alan: E: SSD (SSDPR-CX400 512 GB), ~355 GB boş → SSD deneme klasörü
-- ComfyUI: v0.45.0 portable, BLA bayraklarıyla (`--vram-headroom 2`, eklentisiz)
+- ComfyUI: v0.45.0 portable (`--vram-headroom 2`, eklentisiz); Z-Image-Turbo testi aynı bayraklarla v0.46.0'da tekrarlandı (sonuçlar tutarlı)
 - İndirme hızı (ölçülen): ~80 MB/s (Hugging Face)
 
 ## Modeller
@@ -55,19 +55,22 @@ Her model için ilk çalıştırma ve ikinci çalıştırma ayrı yazılır. Sü
 | flux3-klein (int8) | t2i-gol-evi | 1024² | 25,1 / 7,4 (1344×768) | 5488–5600 | (CSV'de) | ok | kapılı (gated) HF deposundan indirildi |
 | flux3-klein (int8) | t2i-portre | 1024² | 8,6 | 5472 | | ok | portre çok iyi (ışık/doku); gözler kapalı geldi |
 | flux3-klein (int8) | t2i-afis | 1344×768 | 8,3 | 5568 | | ok | "Günaydin Istanbul" — testlerdeki EN DOĞRU Türkçe başlık (ı/ğ noktalamasız, alt yazı yok) |
+| z-image-turbo (int8) | t2i-gol-evi | 1024² / 1344×768 | 57,5 / 8,2 | 5452–5590 | ~3000 | ok | "Göl Evi" tabelası NOKTASI NOKTASI doğru (ikinci hatasız model) |
+| z-image-turbo (int8) | t2i-portre | 1024² | 8,4 | 5541 | ~2940 | ok | portre iyi |
+| z-image-turbo (int8) | t2i-afis | 1344×768 | 9,4 | 5829 | ~2900 | ok | afişin üç satırı da yerinde ("Günadin Istänbul / Şehirin en züziül çayı: 15 €") — düzeni en iyi afiş, yazım hataları sürüyor, ₺ yine € |
 | flux2-klein-4b-edit + LoRA | edit-lora-sil | ~1 MP | 47,5 | 5536 | | ok | fal.ai nesne-silme LoRA (Apache-2.0, 0,14 GB): kırmızı işaretli feneri izsiz sildi, askı halkası kaldı |
 
 ## Göze çarpanlar
 - Türkçe yazı ("Göl Evi", "Günaydın İstanbul", "Şehrin en güzel çayı: 15 ₺"):
   - "Göl Evi" tabelasını yalnız mage-flow-turbo harfi harfine başardı; diğerlerinde harf/aksan bozulmaları.
-  - "Günaydın İstanbul" afişinde hiçbir model tam doğru yazmadı: mage "Günayin Istahul", qwen "Günandin Istanhül", krea "Günayydjn Istańbul", boogu "Günadih İstänbül / Şehrin en bülzür çary: 15 €". Krea'da ₺ simgesi $'a, Boogu'da €'ya dönüştü. En iyisi FLUX.3 Klein: "Günaydin Istanbul" (yalnız noktalı harfler düz; alt yazı yok). Türkçe metin için yine de sonradan metin katmanı önerilir.
+  - "Günaydın İstanbul" afişinde hiçbir model tam doğru yazmadı: mage "Günayin Istahul", qwen "Günandin Istanhül", krea "Günayydjn Istańbul", boogu "Günadih İstänbül / Şehrin en bülzür çary: 15 €", z-image "Günadin Istänbul / Şehirin en züziül çayı: 15 €". Krea'da ₺ simgesi $'a, Boogu ve z-image'de €'ya dönüştü. En iyi tek satır FLUX.3 Klein'da ("Günaydin Istanbul"), en iyi afiş düzeni z-image'de (üç satır da var). Türkçe metin için yine de sonradan metin katmanı önerilir.
 - Yüzler ve eller: mage portresi çok iyi; krea2 portresi en iyisi (cilt dokusu, ışık). Düzenlemelerde (kış, iki-görsel) yüzler tanınabilir kaldı; bozuk el gözlenmedi.
 - Düzenleme (kış, örgü, tabela, iki görsel): flux2-klein-4b mükemmel kış atmosferi + yüz koruması; qwen-edit ve mage-edit iyi ve çok daha hızlı. İki-görsel (yüz+kıyafet) flux2-klein-2img ve qwen-edit'te başarılı; mage tek-görüntüyle sınırlı, boogu-edit iki-görsele izin veriyor ama 3 dk'yı aşıyor.
 - 3B (şekil, doku, arka taraf; splat çıktısının türü): hunyuan3d-2.1 şekil açısından en temiz (~80 sn, dokusuz GLB). Triposplat/Idol hızlı splat (~37 sn, PLY, 17,8 MB) ama geometri kaba. MV-Turbo 4 görünüşten 66 sn'de tutarlı şekil. Pixal3D tek DOKULU üretici (477 sn, 7,1 GB tepe) — yavaş ama 8 GB'ta çalışıyor.
 - Hata ya da bellek yetmezliği (OOM): hiç OOM yok. En ağır anlar: pixal3d 7113 MB kart; boogu-edit boş RAM'ı ~510 MB'a indirdi (çalıştı ama sınırda). Pixal3D'de üç iş akışı hatası düzeltildi: RemoveBackground'ın tek maske çıkışı, RemeshMesh'in dinamik girdilerinin API doğrulamasını hiç geçmemesi (çıkarıldı) ve BakeAmbientOcclusion'a UV-li mesh verilmesi.
 
 ## Sonuç: 8 GB kart için
-- Önerilenler: mage-flow-turbo + mage-flow-edit-turbo (en hızlı, ~3 sn, 5,7 GB); flux2-klein-4b-edit (düzenleme kalitesi, 13–31 sn); flux3-klein (yeni: ~8 sn, en doğru Türkçe yazı, portre çok iyi); qwen-image-2.1-turbo(+edit); krea2-turbo (portre); hunyuan3d-2.1 ve MV-turbo (3B şekil); Triposplat/Idol (hızlı önizleme splat); wan2.2-ti2v-5b (video, 49 kare ~2 dk).
+- Önerilenler: z-image-turbo (yeni: ~8 sn, 8 adım, "Göl Evi" tabelası hatasız, en iyi afiş düzeni; Apache-2.0); mage-flow-turbo + mage-flow-edit-turbo (en hızlı, ~3 sn, 5,7 GB); flux2-klein-4b-edit (düzenleme kalitesi, 13–31 sn); flux3-klein (yeni: ~8 sn, en doğru Türkçe yazı, portre çok iyi); qwen-image-2.1-turbo(+edit); krea2-turbo (portre); hunyuan3d-2.1 ve MV-turbo (3B şekil); Triposplat/Idol (hızlı önizleme splat); wan2.2-ti2v-5b (video, 49 kare ~2 dk).
 - Yavaş ama çalışanlar: boogu-edit (160–220 sn + RAM baskısı), pixal3d-multiview (8 dk, 7,1 GB tepe), hunyuan3d-2.1 (~80 sn, normal).
 - BLA kataloğuna aday olanlar (lisansıyla):
   - mage-flow-turbo / mage-flow-edit-turbo — MIT → katalog + önerilen.
@@ -76,6 +79,7 @@ Her model için ilk çalıştırma ve ikinci çalıştırma ayrı yazılır. Sü
   - pixal3d-multiview — MIT → dokulu 3B adayı (yavaş, sınırda).
   - idol — Apache-2.0; triposplat — Apache-2.0 → splat adayı.
   - flux3-klein — FLUX Kommunity v1.0 (5 M $ altı gelirle ticari serbest) → koşullu, güçlü aday (hız + Türkçe yazı + portre).
+  - z-image-turbo — Apache-2.0 → koşulsuz aday (hız + tabela doğruluğu + afiş düzeni).
   - wan2.2-ti2v-5b — Apache-2.0 (Comfy-Org repack) → tek video adayı.
   - LoRA: fal/flux-2-klein-4B-object-remove — Apache-2.0 → LoRA altyapısı (lora_base + LoraLoaderModelOnly) 8 GB'ta çalışıyor kanıtı.
   - qwen-image-2.1-turbo(+edit) — Qwen Research (ticari DEĞİL) → yalnız ücretsiz modda.

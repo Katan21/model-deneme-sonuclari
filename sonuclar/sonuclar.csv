@@ -68,3 +68,7 @@ time,test,model,width,height,steps,faces,seed,loras,inputs,result,seconds,peak_v
 2026-11-27 09:35,t2i-gol-evi,flux3-klein,1344,768,,,7,,0,ok,7.4,5600,11758,1344x768,files\t2i-gol-evi_flux3-klein_1344_768_00001_.jpg
 2026-11-27 09:35,t2i-portre,flux3-klein,1024,1024,,,7,,0,ok,8.6,5472,11773,1024x1024,files\t2i-portre_flux3-klein_1024_1024_00001_.jpg
 2026-11-27 09:36,t2i-afis,flux3-klein,1344,768,,,7,,0,ok,8.3,5568,11763,1344x768,files\t2i-afis_flux3-klein_1344_768_00001_.jpg
+2026-11-27 12:22,t2i-gol-evi,z-image-turbo,1024,1024,,,7,,0,ok,57.5,5452,3013,1024x1024,files\t2i-gol-evi_z-image-turbo_1024_1024_00001_.jpg
+2026-11-27 12:22,t2i-gol-evi,z-image-turbo,1344,768,,,7,,0,ok,8.2,5590,2976,1344x768,files\t2i-gol-evi_z-image-turbo_1344_768_00001_.jpg
+2026-11-27 12:22,t2i-portre,z-image-turbo,1024,1024,,,7,,0,ok,8.4,5541,2942,1024x1024,files\t2i-portre_z-image-turbo_1024_1024_00001_.jpg
+2026-11-27 12:22,t2i-afis,z-image-turbo,1344,768,,,7,,0,ok,9.4,5829,2905,1344x768,files\t2i-afis_z-image-turbo_1344_768_00001_.jpg

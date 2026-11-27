@@ -1,0 +1,24 @@
+{
+ "id": "z-image-turbo",
+ "name": "Z-Image-Turbo (int8)",
+ "category": "image",
+ "inputs": ["text"],
+ "outputs": ["png"],
+ "params": {
+  "width": {"min": 512, "max": 2048, "step": 8, "default": 1024},
+  "height": {"min": 512, "max": 2048, "step": 8, "default": 1024},
+  "steps": {"min": 4, "max": 20, "default": 8}
+ },
+ "workflow": {
+  "28": {"class_type": "UNETLoader", "inputs": {"unet_name": "z_image_turbo_int8_convrot.safetensors", "weight_dtype": "default"}},
+  "30": {"class_type": "CLIPLoader", "inputs": {"clip_name": "qwen_3_4b.safetensors", "type": "lumina2", "device": "default"}},
+  "29": {"class_type": "VAELoader", "inputs": {"vae_name": "ae.safetensors"}},
+  "27": {"class_type": "CLIPTextEncode", "inputs": {"clip": ["30", 0], "text": "{{prompt}}"}},
+  "33": {"class_type": "ConditioningZeroOut", "inputs": {"conditioning": ["27", 0]}},
+  "11": {"class_type": "ModelSamplingAuraFlow", "inputs": {"model": ["28", 0], "shift": 3.0}},
+  "13": {"class_type": "EmptySD3LatentImage", "inputs": {"width": "{{width}}", "height": "{{height}}", "batch_size": 1}},
+  "3": {"class_type": "KSampler", "inputs": {"model": ["11", 0], "seed": "{{seed}}", "steps": "{{steps}}", "cfg": 1.0, "sampler_name": "res_multistep", "scheduler": "simple", "positive": ["27", 0], "negative": ["33", 0], "latent_image": ["13", 0], "denoise": 1.0}},
+  "8": {"class_type": "VAEDecode", "inputs": {"samples": ["3", 0], "vae": ["29", 0]}},
+  "9": {"class_type": "SaveImage", "inputs": {"images": ["8", 0], "filename_prefix": "{{prefix}}"}}
+ }
+}

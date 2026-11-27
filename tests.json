@@ -1,0 +1,201 @@
+{
+ "seed": 7,
+ "_note": "Model ids here are names for workflows/<id>.json files that the test chat writes from ComfyUI's templates (GOREV.md, step 3). A model whose file is missing is reported as 'invalid: unknown model'.",
+ "tests": [
+  {
+   "id": "t2i-gol-evi",
+   "models": [
+    "flux2-klein-9b",
+    "flux3-klein",
+    "mage-flow-turbo",
+    "qwen-image-2.1-turbo",
+    "krea2-turbo",
+    "boogu-turbo",
+    "z-image-turbo"
+   ],
+   "prompt": "A wooden cabin on the shore of a calm mountain lake at sunrise, pine forest, mist on the water, a small wooden sign by the dock that says \"Göl Evi\", photorealistic, highly detailed",
+   "variants": [
+    {
+     "width": 1024,
+     "height": 1024
+    },
+    {
+     "width": 1344,
+     "height": 768
+    }
+   ]
+  },
+  {
+   "id": "t2i-portre",
+   "models": [
+    "flux2-klein-9b",
+    "flux3-klein",
+    "mage-flow-turbo",
+    "qwen-image-2.1-turbo",
+    "krea2-turbo",
+    "boogu-turbo",
+    "z-image-turbo"
+   ],
+   "prompt": "Close-up portrait of an elderly Turkish fisherman with a grey beard and a flat cap, golden hour light, Istanbul harbour behind him, 85mm photo",
+   "variants": [
+    {
+     "width": 1024,
+     "height": 1024
+    }
+   ]
+  },
+  {
+   "id": "t2i-afis",
+   "models": [
+    "flux2-klein-9b",
+    "flux3-klein",
+    "mage-flow-turbo",
+    "qwen-image-2.1-turbo",
+    "krea2-turbo",
+    "boogu-turbo",
+    "z-image-turbo"
+   ],
+   "prompt": "A poster on a wall of an Istanbul street café, big headline text \"Günaydın İstanbul\", smaller line below \"Şehrin en güzel çayı: 15 ₺\", photorealistic",
+   "variants": [
+    {
+     "width": 1344,
+     "height": 768
+    }
+   ]
+  },
+  {
+   "id": "edit-kis",
+   "models": [
+    "flux2-klein-4b-edit",
+    "flux2-klein-9b-edit",
+    "flux3-klein-edit",
+    "mage-flow-edit-turbo",
+    "qwen-image-2.1-turbo-edit",
+    "boogu-edit"
+   ],
+   "prompt": "Make it a snowy winter night with a full moon; the cabin windows glow warm yellow; keep everything else the same.",
+   "images": [
+    "e_cabin.jpg"
+   ]
+  },
+  {
+   "id": "edit-orgu",
+   "models": [
+    "flux2-klein-4b-edit",
+    "flux2-klein-9b-edit",
+    "flux3-klein-edit",
+    "mage-flow-edit-turbo",
+    "qwen-image-2.1-turbo-edit",
+    "boogu-edit"
+   ],
+   "prompt": "Turn the perfume bottle into a knitted wool plush toy of the same shape; keep the marble surface and lighting.",
+   "images": [
+    "e_bottle.jpg"
+   ]
+  },
+  {
+   "id": "edit-tabela",
+   "models": [
+    "flux2-klein-4b-edit",
+    "flux2-klein-9b-edit",
+    "flux3-klein-edit",
+    "mage-flow-edit-turbo",
+    "qwen-image-2.1-turbo-edit",
+    "boogu-edit"
+   ],
+   "prompt": "Change the text on the wooden sign to \"Günaydın İstanbul\"; change nothing else.",
+   "images": [
+    "e_cabin.jpg"
+   ]
+  },
+  {
+   "id": "edit-iki-gorsel",
+   "models": [
+    "flux2-klein-4b-edit",
+    "flux2-klein-9b-edit",
+    "flux3-klein-edit",
+    "qwen-image-2.1-turbo-edit",
+    "boogu-edit",
+    "flux2-klein-4b-edit-2img"
+   ],
+   "prompt": "Place the fisherman from the first image walking on the street of the second image, next to the red tram; keep his face and clothes.",
+   "images": [
+    "e_man.jpg",
+    "e_street.jpg"
+   ]
+  },
+  {
+   "id": "3d-sandik",
+   "models": [
+    "hunyuan3d-2.1",
+    "triposplat",
+    "idol"
+   ],
+   "images": [
+    "g_chest.jpg"
+   ]
+  },
+  {
+   "id": "3d-mantar",
+   "models": [
+    "hunyuan3d-2.1",
+    "triposplat",
+    "idol"
+   ],
+   "images": [
+    "g_mushroom.jpg"
+   ]
+  },
+  {
+   "id": "3d-robot",
+   "models": [
+    "hunyuan3d-2.1",
+    "triposplat",
+    "idol"
+   ],
+   "images": [
+    "g_robot.jpg"
+   ]
+  },
+  {
+   "id": "3d-cok-aci-robot",
+   "_note": "Front / left / back / right views made from g_robot.jpg with an edit model first (GOREV.md, 3D section); file names as written there.",
+   "models": [
+    "hunyuan3d-2-mv-turbo",
+    "pixal3d-multiview"
+   ],
+   "images": [
+    "mv_robot_front.jpg",
+    "mv_robot_left.jpg",
+    "mv_robot_back.jpg",
+    "mv_robot_right.jpg"
+   ]
+  },
+  {
+   "id": "video-kulube",
+   "models": [
+    "wan2.2-ti2v-5b"
+   ],
+   "prompt": "Gentle morning breeze, mist drifting slowly over the lake, small ripples on the water, birds flying far away; the camera slowly pushes in.",
+   "images": [
+    "e_cabin.jpg"
+   ]
+  },
+  {
+   "id": "edit-lora-sil",
+   "models": [
+    "flux2-klein-4b-edit"
+   ],
+   "prompt": "Remove the highlighted object from the scene",
+   "images": [
+    "lora_hilite.png"
+   ],
+   "loras": [
+    {
+     "file": "kDEkt5q7tDLKOpQJIVMPx_pytorch_lora_weights_comfy_converted.safetensors",
+     "strength": 1.0
+    }
+   ]
+  }
+ ]
+}
